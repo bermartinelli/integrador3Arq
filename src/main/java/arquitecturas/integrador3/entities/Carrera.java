@@ -1,5 +1,6 @@
 package arquitecturas.integrador3.entities;
 
+import arquitecturas.integrador3.dtos.CarreraDTO;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -26,6 +27,11 @@ public class Carrera {
     public Carrera(String nombre, int duracion){
         this.nombre = nombre;
         this.duracion = duracion;
+    }
+
+    public Carrera(CarreraDTO dto){
+        this.duracion = dto.getDuracion();
+        this.nombre = dto.getNombre();
     }
 
     public int getId() {
