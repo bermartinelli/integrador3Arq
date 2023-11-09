@@ -1,5 +1,6 @@
 package arquitecturas.integrador3.entities;
 
+import arquitecturas.integrador3.dtos.EstudianteDTO;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -37,6 +38,10 @@ public class Estudiante {
     private Set<EstudianteCarrera> carreras;
 
     public Estudiante() {
+    }
+
+    public Estudiante(EstudianteDTO dto) {
+
     }
 
 

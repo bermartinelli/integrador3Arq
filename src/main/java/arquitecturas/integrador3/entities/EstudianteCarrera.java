@@ -1,7 +1,7 @@
 package arquitecturas.integrador3.entities;
 
+import arquitecturas.integrador3.dtos.EstudianteCarreraDTO;
 import jakarta.persistence.*;
-
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -39,9 +39,18 @@ public class EstudianteCarrera {
         this.estudiante = e;
         this.carrera =c;
         this.fechaInscripcion = fechaInscripcion;
-        this.fechaInscripcion = fechaEgreso;
+        this.fechaEgreso = fechaEgreso;
         this.antiguedad = this.getAntiguedad(fechaInscripcion);
         this.graduado = this.esGraduado(fechaEgreso);
+    }
+
+    public EstudianteCarrera(EstudianteCarreraDTO dto){
+        this.estudiante = dto.getEstudiante();
+        this.carrera =dto.getCarrera();
+        this.fechaInscripcion = dto.getFechaInscripcion();
+        this.fechaEgreso = dto.getFechaEgreso();
+        this.antiguedad = dto.getAntiguedad();
+        this.graduado = dto.isGraduado();
     }
 
     public int getAntiguedad(Timestamp fechaInscripcion){
@@ -58,4 +67,27 @@ public class EstudianteCarrera {
         }
     }
 
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public Carrera getCarrera() {
+        return carrera;
+    }
+
+    public Timestamp getFechaInscripcion() {
+        return fechaInscripcion;
+    }
+
+    public Timestamp getFechaEgreso() {
+        return fechaEgreso;
+    }
+
+    public boolean isGraduado() {
+        return graduado;
+    }
+
+    public int getAntiguedad() {
+        return antiguedad;
+    }
 }
