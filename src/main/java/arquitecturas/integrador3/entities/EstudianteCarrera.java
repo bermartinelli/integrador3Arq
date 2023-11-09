@@ -2,20 +2,24 @@ package arquitecturas.integrador3.entities;
 
 import arquitecturas.integrador3.dtos.EstudianteCarreraDTO;
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
 @Entity
 @Table(name = "estudiante_carrera")
-public class EstudianteCarrera {
+public class EstudianteCarrera implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne(targetEntity = Estudiante.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "estudiante_id", nullable = false)
     private Estudiante estudiante;
 
-    @Id
     @ManyToOne(targetEntity = Carrera.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "carrera_id", nullable = false)
     private Carrera carrera;

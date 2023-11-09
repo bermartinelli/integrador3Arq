@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("EstudianteCarrera")
+@Service
 public class EstudianteCarreraService {
 
     @Autowired
