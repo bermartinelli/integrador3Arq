@@ -41,7 +41,13 @@ public class Estudiante {
     }
 
     public Estudiante(EstudianteDTO dto) {
-
+        this.dni = dto.getDni();
+        this.nombre = dto.getNombre();
+        this.apellido = dto.getApellido();
+        this.edad = dto.getEdad();
+        this.lu = dto.getLu();
+        this.ciudadResidencia = dto.getCiudadResidencia();
+        this.genero = dto.getGenero();
     }
 
 

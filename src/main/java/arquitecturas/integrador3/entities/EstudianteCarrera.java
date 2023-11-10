@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Optional;
 
 @Entity
 @Table(name = "estudiante_carrera")
@@ -25,10 +25,10 @@ public class EstudianteCarrera implements Serializable {
     private Carrera carrera;
 
     @Column(name = "fecha_inscripcion")
-    private Timestamp fechaInscripcion;
+    private int fechaInscripcion;
 
     @Column(name = "fecha_egreso")
-    private Timestamp fechaEgreso;
+    private Integer fechaEgreso;
 
     @Column
     private boolean graduado;
@@ -39,7 +39,7 @@ public class EstudianteCarrera implements Serializable {
 
     }
 
-    public EstudianteCarrera(Estudiante e, Carrera c, Timestamp fechaInscripcion, Timestamp fechaEgreso){
+    public EstudianteCarrera(Estudiante e, Carrera c, Integer fechaInscripcion, Integer fechaEgreso){
         this.estudiante = e;
         this.carrera =c;
         this.fechaInscripcion = fechaInscripcion;
@@ -48,23 +48,32 @@ public class EstudianteCarrera implements Serializable {
         this.graduado = this.esGraduado(fechaEgreso);
     }
 
+    public EstudianteCarrera(Estudiante e, Carrera c, Integer fechaInscripcion){
+        this.estudiante = e;
+        this.carrera =c;
+        this.fechaInscripcion = fechaInscripcion;
+        this.antiguedad = this.getAntiguedad(fechaInscripcion);
+        this.graduado = this.esGraduado(fechaEgreso);
+    }
+
+
     public EstudianteCarrera(EstudianteCarreraDTO dto){
-        this.estudiante = dto.getEstudiante();
-        this.carrera =dto.getCarrera();
+        //tengo que de alguna manera encontrar el estudiante y la carrera por dni y por lu que es lo que me viene del DTO.
+        //this.estudiante = dto.getEstudiante();
+        //this.carrera =dto.getCarrera();
         this.fechaInscripcion = dto.getFechaInscripcion();
         this.fechaEgreso = dto.getFechaEgreso();
         this.antiguedad = dto.getAntiguedad();
         this.graduado = dto.isGraduado();
     }
 
-    public int getAntiguedad(Timestamp fechaInscripcion){
+    public int getAntiguedad(Integer fechaInscripcion){
         Calendar inscripcion = Calendar.getInstance();
-        inscripcion.setTimeInMillis(this.fechaInscripcion.getTime());
-        return Calendar.getInstance().get(Calendar.YEAR) - fechaInscripcion.getYear();
+        return Calendar.getInstance().get(Calendar.YEAR) - fechaInscripcion;
     }
 
 
-    public boolean esGraduado(Timestamp fechaEgreso) {
+    public boolean esGraduado(Integer fechaEgreso) {
         if(fechaEgreso != null) {
             return true;}
             else {return false;
@@ -79,11 +88,11 @@ public class EstudianteCarrera implements Serializable {
         return carrera;
     }
 
-    public Timestamp getFechaInscripcion() {
+    public int getFechaInscripcion() {
         return fechaInscripcion;
     }
 
-    public Timestamp getFechaEgreso() {
+    public Integer getFechaEgreso() {
         return fechaEgreso;
     }
 

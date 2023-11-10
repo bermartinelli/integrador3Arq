@@ -1,6 +1,7 @@
 package arquitecturas.integrador3.controllers;
 
 import arquitecturas.integrador3.dtos.EstudianteCarreraDTO;
+import arquitecturas.integrador3.dtos.EstudianteCarreraResponseDTO;
 import arquitecturas.integrador3.entities.EstudianteCarrera;
 import arquitecturas.integrador3.services.EstudianteCarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class EstudianteCarreraController {
     EstudianteCarreraService service;
 
     @PostMapping("")
-    ResponseEntity<?> nuevaMatricula(@RequestBody EstudianteCarreraDTO dto){
+    ResponseEntity<?> nuevaMatricula(@RequestBody EstudianteCarreraResponseDTO dto){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.save(dto));
         } catch (Exception e){

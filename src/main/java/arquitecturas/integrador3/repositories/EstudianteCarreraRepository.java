@@ -18,8 +18,11 @@ public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCar
     List<Carrera> getCarrerasConInscriptos();
 
     //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
-    @Query("SELECT e FROM Estudiante e JOIN e.carreras ec WHERE e.ciudadResidencia = :ciudad AND ec.carrera = :c GROUP BY ec.carrera")
-    List<Estudiante> getEstudiantesPorCarreraCiudad(Carrera c, String ciudad);
+    @Query("SELECT e "+
+            " FROM Estudiante e WHERE e.ciudadResidencia = :ciudad " +
+            "AND e.id IN " +
+            "(SELECT ec.estudiante.id FROM EstudianteCarrera ec WHERE ec.carrera.nombre = :c)")
+    List<Estudiante> getEstudiantesPorCarreraCiudad(String c, String ciudad);
 
     //h) generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y egresados por año.
     // Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica.
